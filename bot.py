@@ -1,15 +1,25 @@
-from telegram.ext import Updater, CommandHandler
+import datetime
+from telegram.ext import Updater
 from tkn import TOKEN
-
-updater = Updater(token=TOKEN)
-job_queue = updater.job_queue
+from get_random_passage import *
 
 
-def callback_minute(bot, job):
+def callback_func(bot, job):
+    if random.randrange(10):
+        extractor = get_random_paragraph
+    else:
+        extractor = get_random_extract
     bot.send_message(chat_id='@green_hand_at_whaling',
-                     text="One message every 30 seconds")
+                     text=get_message(extractor))
 
 
-job_queue.run_repeating(callback_minute, interval=30, first=0)
+def get_message(extractor):
+    title, passage = extractor()
+    return title + '\n\n' + passage
 
-updater.start_polling()
+
+if __name__ == '__main__':
+    updater = Updater(token=TOKEN)
+    updater.job_queue.run_daily(callback_func, time=datetime.time(12, 40))
+    # updater.job_queue.run_repeating(callback_func, interval=30, first=0)
+    updater.start_polling()
