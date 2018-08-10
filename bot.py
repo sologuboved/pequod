@@ -20,6 +20,6 @@ def get_message(extractor):
 
 if __name__ == '__main__':
     updater = Updater(token=TOKEN)
-    updater.job_queue.run_daily(callback_func, time=datetime.time(12, 40))
+    updater.job_queue.run_daily(callback_func, time=datetime.time(17, 0))
     # updater.job_queue.run_repeating(callback_func, interval=30, first=0)
     updater.start_polling()
