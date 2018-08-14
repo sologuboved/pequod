@@ -4,7 +4,7 @@ from tkn import TOKEN
 from get_random_passage import *
 
 
-def callback_func(bot, job):
+def random_quoter(bot, job):
     if random.randrange(10):
         extractor = get_random_paragraph
     else:
@@ -20,6 +20,7 @@ def get_message(extractor):
 
 if __name__ == '__main__':
     updater = Updater(token=TOKEN)
-    updater.job_queue.run_daily(callback_func, time=datetime.time(17, 0))
-    # updater.job_queue.run_repeating(callback_func, interval=30, first=0)
+    job_queue = updater.job_queue
+    job_queue.run_daily(random_quoter, time=datetime.time(17, 00))
+    # job_queue.run_repeating(another_func, datetime.timedelta(hours=3.0), first=0)
     updater.start_polling()
