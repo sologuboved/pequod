@@ -22,7 +22,7 @@ def get_message(extractor):
 def main():
     updater = Updater(token=TOKEN)
     job_queue = updater.job_queue
-    job_queue.run_daily(random_quoter, time=datetime.time(22, 10))
+    job_queue.run_daily(random_quoter, time=datetime.time(17, 00))
     updater.start_polling()
 
 
