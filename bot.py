@@ -5,13 +5,13 @@ from get_random_passage import *
 from pid_operations import write_pid
 
 
-def random_quoter(bot, job):
+def random_quoter(context):
     if random.randrange(10):
         extractor = get_random_paragraph
     else:
         extractor = get_random_extract
-    bot.send_message(chat_id='@green_hand_at_whaling',
-                     text=get_message(extractor))
+    context.bot.send_message(chat_id='@green_hand_at_whaling',
+                             text=get_message(extractor))
 
 
 def get_message(extractor):
@@ -20,9 +20,9 @@ def get_message(extractor):
 
 
 def main():
-    updater = Updater(token=TOKEN)
+    updater = Updater(token=TOKEN, use_context=True)
     job_queue = updater.job_queue
-    job_queue.run_daily(random_quoter, time=datetime.time(17, 00))
+    job_queue.run_daily(random_quoter, time=datetime.time(17, 0))
     updater.start_polling()
 
 
