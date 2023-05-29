@@ -1,9 +1,5 @@
-import random
 import json
-
-
-TITLE = 'title'
-TEXT = 'text'
+import random
 
 
 def load_json(json_filename):
@@ -12,13 +8,14 @@ def load_json(json_filename):
 
 
 def get_random_extract():
-    random_extract = load_json('/home/sologuboved/scripts/mobydick/extracts/extracts.json')[random.randrange(0, 80)]
-    return random_extract[TITLE], random_extract[TEXT]
+    random_extract = load_json(
+        '/home/sologuboved/scripts/mobydick_sources/extracts/extracts.json',
+    )[random.randrange(0, 80)]
+    return random_extract['title'], random_extract['text']
 
 
 def get_random_paragraph():
-    chapter = load_json('/home/sologuboved/scripts/mobydick/mobydick_json/{}.json'.format(random.randint(1, 136)))
-    title = chapter[TITLE]
-    text = chapter[TEXT]
+    chapter = load_json(f'/home/sologuboved/scripts/mobydick_sources/mobydick_json/{random.randint(1, 136)}.json')
+    text = chapter['text']
     paragraph = text[random.randrange(0, len(text))]
-    return title, paragraph
+    return chapter['title'], paragraph

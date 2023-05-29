@@ -1,4 +1,5 @@
-tkn.py
 .idea/
-mobydick_json
-extracts
+.DS_Store
+__pycache__/
+userinfo.py
+venv_pequod/

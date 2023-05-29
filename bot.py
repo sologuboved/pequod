@@ -1,29 +1,22 @@
-import datetime
-from telegram.ext import Updater
-from tkn import TOKEN
-from get_random_passage import *
-from pid_operations import write_pid
+import asyncio
+import random
 
+from telegram import Bot
 
-def random_quoter(context):
-    if random.randrange(10):
-        extractor = get_random_paragraph
-    else:
-        extractor = get_random_extract
-    context.bot.send_message(chat_id='@green_hand_at_whaling',
-                             text=get_message(extractor))
-
-
-def get_message(extractor):
-    title, passage = extractor()
-    return title + '\n\n' + passage
+from get_random_passage import get_random_extract, get_random_paragraph
+from pid_ops import write_pid
+from userinfo import TOKEN
 
 
 def main():
-    updater = Updater(token=TOKEN, use_context=True)
-    job_queue = updater.job_queue
-    job_queue.run_daily(random_quoter, time=datetime.time(17, 0))
-    updater.start_polling()
+    if random.randrange(20):
+        extractor = get_random_paragraph
+    else:
+        extractor = get_random_extract
+    title, passage = extractor()
+    text = title + '\n\n' + passage
+    print(text)
+    asyncio.run(Bot(token=TOKEN).send_message(chat_id='@green_hand_at_whaling', text=text))
 
 
 if __name__ == '__main__':
